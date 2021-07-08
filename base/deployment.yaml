@@ -1,0 +1,28 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name:  demo-app
+spec:
+  # selector:
+  #   matchLabels:
+  #     groups: onewo 
+  # replicas: 1 
+  template:
+    # metadata:
+    #   labels:
+    #     groups: onewo 
+    spec:
+      containers:
+      - name:  demo-app
+        image: harbor.vankeservice.com/demo/demo:latest
+        # ports:
+        # - containerPort: 7700
+        #   name: http
+        #   protocol: TCP
+        # envFrom:
+        # - configMapRef:
+        #     name: demo-app
+        # # - secretRef:
+        # #     name: demo-app
+      imagePullSecrets:
+      - name: regcred
