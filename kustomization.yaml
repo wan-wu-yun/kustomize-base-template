@@ -4,21 +4,21 @@ resources:
 - deployment.yaml
 - service.yaml
 # - ingress.yaml
-generatorOptions:
- disableNameSuffixHash: true
-configMapGenerator:
-- name: demo-app 
-  literals:
-  - app=onewo
-secretGenerator:
-  - name: regcred
-    files:
-      - secrets/.dockerconfigjson
-    type: kubernetes.io/dockerconfigjson
-  - name: onewo.com-tls
-    files:
-      - secrets/tls.crt
-      - secrets/tls.key
-    type: kubernetes.io/tls
-configurations:
-- skip-secrets-prefix.yaml
+#generatorOptions:
+# disableNameSuffixHash: true
+#configMapGenerator:
+#- name: demo-app 
+#  literals:
+#  - app=onewo
+    #secretGenerator:
+    #  - name: regcred
+    #    files:
+    #      - secrets/.dockerconfigjson
+    #    type: kubernetes.io/dockerconfigjson
+    #  - name: onewo.com-tls
+    #    files:
+    #      - secrets/tls.crt
+    #      - secrets/tls.key
+    #    type: kubernetes.io/tls
+    #configurations:
+    #- skip-secrets-prefix.yaml
