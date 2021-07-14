@@ -19,9 +19,9 @@ spec:
         - containerPort: 7700
           name: http
           protocol: TCP
-        # envFrom:
-        # - configMapRef:
-        #     name: demo-app
+        envFrom:
+        - configMapRef:
+            name: demo-app
         # # - secretRef:
         # #     name: demo-app
       imagePullSecrets:
