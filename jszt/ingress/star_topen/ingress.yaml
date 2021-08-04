@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/enable-cors: "false"
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/affinity-mode: persistent
+  name: demo-app
+spec:
+  tls:
+  - hosts:   
+    - demo.topen.vankeservice.com
+    secretName: wildcard.topen.vankeservice.com-tls
+  rules:
+    # eg  www.vankeservice.com
+  - host: demo.topen.vankeservice.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: demo-app
+          servicePort: 8081
