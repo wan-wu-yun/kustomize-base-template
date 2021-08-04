@@ -2,16 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name:  demo-app
-spec:
+spec: 
+  replicas: 1 
   selector:
     matchLabels:
-      groups: jszt 
-  replicas: 1 
+      app: demo-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  minReadySeconds: 60
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
   template:
-    metadata:
-      labels:
-        groups: jszt 
     spec:
+      restartPolicy: Always
       containers:
       - name:  demo-app
         image: harbor.vankeservice.com/demo/demo:latest
@@ -22,7 +28,5 @@ spec:
         envFrom:
         - configMapRef:
             name: demo-app
-        # # - secretRef:
-        # #     name: demo-app
       imagePullSecrets:
       - name: regcred

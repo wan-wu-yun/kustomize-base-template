@@ -1,17 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    groups: jszt
   name: demo-app
+  annotations:
+    "consul.hashicorp.com/service-sync": "true"
 spec:
   ports:
   - name: http
     port: 8081
-    targetPort: http
-  selector:
-    groups: jszt 
+    targetPort: 8081
   sessionAffinity: None
   type: ClusterIP
-status:
-  loadBalancer: {}

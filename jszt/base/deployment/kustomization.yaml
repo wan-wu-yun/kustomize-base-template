@@ -5,7 +5,3 @@ resources:
 - service.yaml
 generatorOptions:
   disableNameSuffixHash: true
-configMapGenerator:
-- name: demo-app 
-  literals:
-  - k8s=onewo

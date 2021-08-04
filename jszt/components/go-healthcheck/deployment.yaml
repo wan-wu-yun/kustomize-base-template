@@ -1,0 +1,19 @@
+- op: add
+  path: /spec/template/spec/containers/0/livenessProbe
+  value:
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+    httpGet:
+      port: 8081
+      path: /healthz
+- op: add
+  path: /spec/template/spec/containers/0/readinessProbe
+  value:
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 3
+    httpGet:
+      port: 8081
+      path: /healthz
