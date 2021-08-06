@@ -9,12 +9,12 @@
       command: [ "/bin/sh" ]
       args: [ "-c", "cp /skywalking/agent/optional-plugins/* /skywalking/agent/plugins && cp -R /skywalking/agent /agent/" ]
 - op: add
-  path: /spec/template/spec/volumes
+  path: /spec/template/spec/volumes/0
   value:
-    - name: skywalking-agent
-      emptyDir: { }
+    name: skywalking-agent
+    emptyDir: { }
 - op: add
-  path: /spec/template/spec/containers/0/volumeMounts
+  path: /spec/template/spec/containers/0/volumeMounts/0
   value:
-    - name: skywalking-agent
-      mountPath: /skywalking
+    name: skywalking-agent
+    mountPath: /skywalking
