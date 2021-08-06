@@ -2,7 +2,7 @@
   path: /spec/template/spec/initContainers
   value:
     - name: agent-container
-      image: harbor.vankeservice.com/library/skywalking-java-agent:8.6.0-jdk8
+      image: harbor.vankeservice.com/library/skywalking-java-agent:8.6.0-jdk11
       volumeMounts:
       - name: skywalking-agent
         mountPath: /agent
