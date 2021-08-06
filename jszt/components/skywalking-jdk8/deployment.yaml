@@ -1,0 +1,20 @@
+- op: add
+  path: /spec/template/spec/initContainers
+  value:
+    - name: agent-container
+      image: harbor.vankeservice.com/library/skywalking-java-agent:8.8.0-jdk11
+      volumeMounts:
+      - name: skywalking-agent
+        mountPath: /agent
+      command: [ "/bin/sh" ]
+      args: [ "-c", "cp /skywalking/agent/optional-plugins/* /skywalking/agent/plugins && cp -R /skywalking/agent /agent/" ]
+- op: add
+  path: /spec/template/spec/volumes
+  value:
+    - name: skywalking-agent
+      emptyDir: { }
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts
+  value:
+    - name: skywalking-agent
+      mountPath: /skywalking
