@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  demo-app
+spec: 
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: demo-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  minReadySeconds: 60
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+  template:
+    spec:
+      restartPolicy: Always
+      containers:
+      - name:  demo-app
+        image: harbor.vankeservice.com/demo/demo:latest
+        ports:
+        - containerPort: 8081
+          name: http
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: demo-app
+      imagePullSecrets:
+      - name: regcred

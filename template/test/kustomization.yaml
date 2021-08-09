@@ -1,0 +1,124 @@
+#patchesStrategicMerge:  如果有其他定制的配置，可以在这里直接引用
+
+
+# 指定命名空间
+namespace: dev-bzzt
+# 指定通用label
+commonLabels:
+  app: dev-bzzt   
+resources:
+  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/base/deployment
+# ingress 配置，按需开启
+  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/components/ingress/onewo
+# 部署通用组件
+components:
+  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/base/components/healthcheck
+  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/base/components/resources
+  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/base/components/sls-cm
+patches:
+  - patch: |
+      - op: replace
+        path: /metadata/name
+        value: war-painting-dev   #替换部署名称，demoapp
+    target:
+      name: demo-app*
+  # Pod相关配置
+  - patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: harbor.vankeservice.com/jszt/blizzard:20210803.2   # 替换镜像地址
+      - op: replace
+        path: /spec/template/spec/containers/0/name
+        value: war-painting     # 修改容器名
+      - op: replace
+        path: /spec/template/spec/containers/0/ports/0/containerPort
+        value: 8100    # 修改容器端口
+      - op: replace
+        path: /spec/replicas
+      value: 2   # 修改副本数
+    ###添加启动参数 如需要  取消注释      
+    # - op: add
+    #   path: /spec/template/spec/containers/0/args
+    #   value: ['vk-wechat']      
+# 健康检查
+  - patch: |
+      - op: replace
+      path：/spec/template/spec/containers/0/livenessProbe/tcpSocket/0/
+      value: 80
+      - op: replace
+      path：/spec/template/spec/containers/0/readinessProbe/tcpSocket/0/
+      value: 80
+# Cpu Mem 资源配置
+  - patch: |
+      - op: replace
+      path： /spec/template/spec/containers/0/resources/limits/cpu/
+      value: 200m    # 替换Cpu最大使用值
+      - op: replace
+      path： /spec/template/spec/containers/0/resources/limits/memory/
+      value: 300Mi   # 替换Mem最大使用值
+      - op: replace
+      path： /spec/template/spec/containers/0/resources/requests/cpu/
+      value: 50m     # 替换Cpu初始使用值
+      - op: replace
+      path： /spec/template/spec/containers/0/resources/requests/memory/
+      value: 100Mi   # 替换Mem初始使用值
+    target:
+      group: apps
+      kind: Deployment
+      version: v1
+
+#日志服务配置：
+  - patch: |
+      - op: add
+      path：/data/
+      value:
+         aliyun_logs_sls-demo: stdout              # 替换sls-demo为对硬值
+         aliyun_logs_sls-demo_logstore: sls-demo   
+         aliyun_logs_sls-demo_project: sls-demo
+    target:
+      kind: ConfigMap
+      version: v1
+
+#修改service相关参数 
+  - patch: |
+     - op: replace
+      path: /spec/ports/0/port
+      value: 80 ####svc端口
+    target:
+      kind: Service
+      version: v1
+
+# Ingress
+  - patch: |
+      - op: replace
+        path: /metadata/name
+        value: billservice-uat-ingress        # 替换ingress的名称
+      # 替换ingress证书的域名
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: bill.topen.vankeservice.com
+      # 替换ingress的域名
+      - op: replace
+        path: /spec/rules/0/host
+        value: bill.topen.vankeservice.com
+  - patch: |
+     - op: replace
+     path: /spec/tls/0/hosts/0 
+     value: vspaceloc.onewo.com             # 替换https域名
+     - op: replace
+      path: /spec/rules/0/host
+      value: vspaceloc.onewo.com            # 替换http域名
+     - op: replace
+     path: /metadata/annotations/kubernetes.io~1ingress.class
+     value: vspace                           # 替换ingress class
+    ### 默认指向/目录 如需修改，取消以下注释 修改对应path即可
+    #  - op: replace
+    #  path: /spec/rules/0/http/paths/0
+    #   value:
+    #     path: '/task-console'              #  替换对应path
+    #     backend:
+    #       serviceName: prod-vk-wechat-admin
+    #       servicePort: http
+    target:
+      kind: Ingress
+      version: v1beta1
