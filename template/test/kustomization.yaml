@@ -12,9 +12,9 @@ resources:
   - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/components/ingress/onewo
 # 部署通用组件
 components:
-  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/base/components/healthcheck
-  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/base/components/resources
-  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/base/components/sls-cm
+  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/components/healthcheck
+  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/components/resources
+  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/components/sls-cm
 patches:
   - patch: |
       - op: replace
@@ -82,8 +82,8 @@ patches:
 #修改service相关参数 
   - patch: |
      - op: replace
-      path: /spec/ports/0/port
-      value: 80 ####svc端口
+       path: /spec/ports/0/port
+       value: 80 ####svc端口
     target:
       kind: Service
       version: v1
