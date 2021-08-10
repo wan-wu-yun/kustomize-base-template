@@ -20,4 +20,4 @@ spec:
       - path: /
         backend:
           serviceName: demo-app
-          servicePort: 8081
+          servicePort: 8080
