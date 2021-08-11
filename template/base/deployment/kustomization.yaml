@@ -10,15 +10,15 @@ configMapGenerator:
   literals:
   - app=onewo
 # k8s pod 从harbor拉取镜像secret
-secretGenerator:
-  - name: regcred
-    files:
-      - secrets/.dockerconfigjson
-    type: kubernetes.io/dockerconfigjson
-  - name: onewo.com-tls
-    files:
-      - secrets/tls.crt
-      - secrets/tls.key
-    type: kubernetes.io/tls
-configurations:
-- skip-secrets-prefix.yaml
+# secretGenerator:
+#   - name: regcred
+#     files:
+#       - secrets/.dockerconfigjson
+#     type: kubernetes.io/dockerconfigjson
+#   - name: onewo.com-tls
+#     files:
+#       - secrets/tls.crt
+#       - secrets/tls.key
+#     type: kubernetes.io/tls
+# configurations:
+# - skip-secrets-prefix.yaml
