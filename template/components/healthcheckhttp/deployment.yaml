@@ -16,5 +16,5 @@
       successThreshold: 1
       httpGet:
         port: 80
-      path: /
+        path: /
       timeoutSeconds: 10
