@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      initContainers:
+        - name: init-package
+          image: harbor.vankeservice.com/rdmp/base-image/openjdk:master
+          volumeMounts:
+            - mountPath: /app
+              name: package
+      containers:
+        - name: java-base
+          image: harbor.vankeservice.com/rdmp/base-image/openjdk:master
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          volumeMounts:
+            - mountPath: /usr/src/app
+              name: package
+      volumes:
+        - name: package
+          emptyDir: {}
