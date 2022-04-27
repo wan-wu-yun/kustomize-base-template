@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: demo-app
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: demo-app
@@ -20,17 +19,18 @@ spec:
             - mountPath: /app
               name: package
       containers:
-        - name: java-base
-          image: harbor.vankeservice.com/rdmp/base-image/openjdk:master
+        - name: demo-app
+          image: harbor.vankeservice.com/rdmp/base-image/tomcat:master
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
               name: http
           volumeMounts:
-            - mountPath: /usr/src/app
+            - mountPath: /usr/local/tomcat/webapps
               name: package
       imagePullSecrets:
         - name: regcred
       volumes:
         - name: package
           emptyDir: {}
+

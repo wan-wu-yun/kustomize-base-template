@@ -5,4 +5,6 @@ patchesJson6902:
   - target:
       kind: Deployment
       name: demo-app
-      version: apps/v1
+      version: v1
+      group: apps
+    path: resources.yaml

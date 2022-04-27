@@ -7,4 +7,4 @@ patchesJson6902:
       name: demo-app
       version: v1
       group: apps
-    path: port-healthcheck.yaml
+    path: storage.yaml
