@@ -13,5 +13,3 @@ spec:
     groups: onewo 
   sessionAffinity: None
   type: ClusterIP
-status:
-  loadBalancer: {}
