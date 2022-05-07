@@ -16,6 +16,9 @@ spec:
   revisionHistoryLimit: 10
   progressDeadlineSeconds: 600
   template:
+    metadata:
+      labels:
+        app: demoa-pp
     spec:
       restartPolicy: Always
       containers:
