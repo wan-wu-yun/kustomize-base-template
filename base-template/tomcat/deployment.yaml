@@ -14,10 +14,6 @@ spec:
       initContainers:
         - name: init-package
           image: harbor.vankeservice.com/demo/demo
-          command:
-            - cp
-            - /app/ROOT.war
-            - /ROOT.war
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /app
