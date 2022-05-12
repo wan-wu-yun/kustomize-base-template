@@ -14,8 +14,6 @@ spec:
       initContainers:
         - name: init-package
           image: harbor.vankeservice.com/demo/demo
-          command: ["sleep"]
-          args: ["infinity"]
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /app
