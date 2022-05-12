@@ -14,7 +14,7 @@ spec:
     spec:
       initContainers:
         - name: init-package
-          image: harbor.vankeservice.com/rdmp/demo-app
+          image: harbor.vankeservice.com/rdmp/demo
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /app
