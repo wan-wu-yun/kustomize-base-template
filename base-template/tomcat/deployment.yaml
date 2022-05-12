@@ -20,7 +20,7 @@ spec:
               name: package
       containers:
         - name: demo-app
-          image: harbor.vankeservice.com/rdmp/base-image/tomcat:master
+          image: harbor.vankeservice.com/rdmp/base-image
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
