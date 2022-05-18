@@ -1,4 +1,4 @@
 - op: add
   path: /spec/template/spec/initContainers/command/1
   value:
-    - ["cp", "/app.jar", "/app/app.jar"]
+    - ["cp", "/ROOT.war", "/app/ROOT.war"]
