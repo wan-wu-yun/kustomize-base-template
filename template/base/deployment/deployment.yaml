@@ -29,4 +29,4 @@ spec:
         - configMapRef:
             name: demo-app
       imagePullSecrets:
-      - name: regcred
+      - name: regcred-jfrog
