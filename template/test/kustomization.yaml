@@ -8,7 +8,7 @@ namespace: dev-bzzt
 commonLabels:
   app: dev-bzzt   
 resources:
-  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/base/deployment
+  - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/base/deployment?ref=jfrog
 # ingress 配置，按需开启
   - https://git.vankeservice.com/k8s/public/kustomize-base-template.git/template/components/ingress/onewo
 # 部署通用组件

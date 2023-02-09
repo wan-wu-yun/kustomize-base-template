@@ -25,4 +25,4 @@ spec:
         # # - secretRef:
         # #     name: demo-app
       imagePullSecrets:
-      - name: regcred
+      - name: regcred-jfrog
