@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+spec:
+  template:
+    spec:
+      containers:
+        - name: demo-app
+          env:
+            - name: SVC_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app']
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: GC_PATH
+              value: "/opt/logs/$(SVC_NAME)/$(POD_IP)"
+            - name: JAVA_OPTS
+              value: "$(JAVA_OPTS) -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof"
+          volumeMounts:
+            - name: billcenter-nas-pvc
+              mountPath: /opt/logs/
+            - name: timezone
+              mountPath: /etc/localtime
+      volumes:
+        - name: billcenter-nas-pvc
+          persistentVolumeClaim:
+            claimName: billcenter-nas-pvc
+        - name: timezone
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Shanghai
+      initContainers:
+        - name: init-dump-path
+          image: pkg.onewo.com/plutus-docker-prod-local/apline-openjdk8:latest
+          command: [ 'sh','-c','echo $GC_PATH; mkdir -p $GC_PATH' ]
+          env:
+            - name: SVC_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app']
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: GC_PATH
+              value: "/opt/logs/$(SVC_NAME)/$(POD_IP)/"
+          envFrom:
+            - configMapRef:
+                name: demo-app
+          volumeMounts:
+            - mountPath: /opt/logs/
+              name: billcenter-nas-pvc
