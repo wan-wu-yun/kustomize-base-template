@@ -30,6 +30,8 @@ spec:
                       -Djava.rmi.server.hostname=$(POD_IP)"
             - name: GC_PATH
               value: "/opt/logs/$(SVC_NAME)/$(POD_IP)"
+            - name: CATALINA_OPTS
+              value: "$(CATALINA_OPTS) $(JAVA_TOOL_OPTIONS) -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof"
             - name: JAVA_OPTS
               value: "$(JAVA_OPTS) $(JAVA_TOOL_OPTIONS) -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof"
           volumeMounts:
