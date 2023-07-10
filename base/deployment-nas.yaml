@@ -20,7 +20,7 @@ spec:
               value: "9999"
             - name: "ILOGTAIL_JMX_TAGS"
               value: "$(SVC_NAME)"
-            - name: JAVA_TOOL_OPTIONS
+            - name: JMX_OPTIONS
               value: "-Dcom.sun.management.jmxremote \
                       -Dcom.sun.management.jmxremote.authenticate=false \
                       -Dcom.sun.management.jmxremote.ssl=false \
@@ -31,9 +31,9 @@ spec:
             - name: GC_PATH
               value: "/opt/logs/$(SVC_NAME)/$(POD_IP)"
             - name: CATALINA_OPTS
-              value: "$(CATALINA_OPTS) $(JAVA_TOOL_OPTIONS) -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof"
+              value: "$(CATALINA_OPTS) -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof $(JMX_OPTIONS)"
             - name: JAVA_OPTS
-              value: "$(JAVA_OPTS) $(JAVA_TOOL_OPTIONS) -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof"
+              value: "$(JAVA_OPTS) -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof $(JMX_OPTIONS)"
           volumeMounts:
             - name: billcenter-nas-pvc
               mountPath: /opt/logs/
