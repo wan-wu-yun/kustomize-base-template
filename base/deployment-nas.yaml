@@ -16,18 +16,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
-            - name: "ILOGTAIL_JMX_PORT"
-              value: "9999"
-            - name: "ILOGTAIL_JMX_TAGS"
-              value: "$(SVC_NAME)"
-            - name: JMX_OPTIONS
-              value: "-Dcom.sun.management.jmxremote \
-                      -Dcom.sun.management.jmxremote.authenticate=false \
-                      -Dcom.sun.management.jmxremote.ssl=false \
-                      -Dcom.sun.management.jmxremote.local.only=false \
-                      -Dcom.sun.management.jmxremote.port=$(ILOGTAIL_JMX_PORT) \
-                      -Dcom.sun.management.jmxremote.rmi.port=$(ILOGTAIL_JMX_PORT) \
-                      -Djava.rmi.server.hostname=$(POD_IP)  "
             - name: GC_PATH
               value: "/opt/logs/$(SVC_NAME)/$(POD_IP)"
             - name: CATALINA_OPTS
