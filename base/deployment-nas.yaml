@@ -41,6 +41,10 @@ spec:
               value: grpc
             - name: OTEL_EXPORTER_OTLP_COMPRESSION
               value: gzip
+            - name: OTEL_INSTRUMENTATION_SERVLET_EXPERIMENTAL_CAPTURE_REQUEST_PARAMETERS
+              value: captureParam
+            - name: OTEL_INSTRUMENTATION_COMMON_DB_STATEMENT_SANITIZER_ENABLED
+              value: false
           volumeMounts:
             - name: billcenter-nas-pvc
               mountPath: /opt/logs/
