@@ -45,6 +45,8 @@ spec:
               value: captureParam
             - name: OTEL_INSTRUMENTATION_COMMON_DB_STATEMENT_SANITIZER_ENABLED
               value: "false"
+            - name: OTEL_JDBC_SQL_OBFUSCATION
+              value: "true"
           volumeMounts:
             - name: billcenter-nas-pvc
               mountPath: /opt/logs/
