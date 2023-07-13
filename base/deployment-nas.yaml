@@ -27,13 +27,20 @@ spec:
                       -Dcom.sun.management.jmxremote.local.only=false \
                       -Dcom.sun.management.jmxremote.port=$(ILOGTAIL_JMX_PORT) \
                       -Dcom.sun.management.jmxremote.rmi.port=$(ILOGTAIL_JMX_PORT) \
-                      -Djava.rmi.server.hostname=$(POD_IP)"
+                      -Djava.rmi.server.hostname=$(POD_IP) \
+                      -javaagent:/opt/opentelemetry-agent/opentelemetry-javaagent-all.jar \
+                      -Dotel.instrumentation.tomcat.enabled=false \
+                      -Dotel.resource.attributes=service.namespace=test-yz,service.name=$(SVC_NAME),service.version=1.0,host.name=$(POD_IP),deployment.environment=sit "
             - name: GC_PATH
               value: "/opt/logs/$(SVC_NAME)/$(POD_IP)"
             - name: CATALINA_OPTS
               value: "$(CATALINA_OPTS)  -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof $(JMX_OPTIONS)"
             - name: JAVA_OPTS
               value: "$(JAVA_OPTS)  -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof $(JMX_OPTIONS)"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: grpc
+            - name: OTEL_EXPORTER_OTLP_COMPRESSION
+              value: gzip
           volumeMounts:
             - name: billcenter-nas-pvc
               mountPath: /opt/logs/
