@@ -19,9 +19,9 @@ spec:
             - name: GC_PATH
               value: "/opt/logs/$(SVC_NAME)/$(POD_IP)"
             - name: CATALINA_OPTS
-              value: "$(CATALINA_OPTS)  -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof $(JMX_OPTIONS)"
+              value: "$(CATALINA_OPTS)  -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof "
             - name: JAVA_OPTS
-              value: "$(JAVA_OPTS)  -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof $(JMX_OPTIONS)"
+              value: "$(JAVA_OPTS)  -Xloggc:$(GC_PATH)/$(SVC_NAME)-%p-%t.log -XX:HeapDumpPath=$(GC_PATH)/$(SVC_NAME).hprof "
             - name: OTEL_EXPORTER_OTLP_PROTOCOL
               value: grpc
             - name: OTEL_EXPORTER_OTLP_COMPRESSION
