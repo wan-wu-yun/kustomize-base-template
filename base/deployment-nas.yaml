@@ -27,10 +27,7 @@ spec:
                       -Dcom.sun.management.jmxremote.local.only=false \
                       -Dcom.sun.management.jmxremote.port=$(ILOGTAIL_JMX_PORT) \
                       -Dcom.sun.management.jmxremote.rmi.port=$(ILOGTAIL_JMX_PORT) \
-                      -Djava.rmi.server.hostname=$(POD_IP) \
-                      -javaagent:/opt/opentelemetry-agent/opentelemetry-javaagent-all.jar \
-                      -Dotel.instrumentation.tomcat.enabled=false \
-                      -Dotel.resource.attributes=service.namespace=test-yz,service.name=$(SVC_NAME),service.version=1.0,host.name=$(POD_IP),deployment.environment=sit "
+                      -Djava.rmi.server.hostname=$(POD_IP)  "
             - name: GC_PATH
               value: "/opt/logs/$(SVC_NAME)/$(POD_IP)"
             - name: CATALINA_OPTS
