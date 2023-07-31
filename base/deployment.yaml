@@ -6,7 +6,9 @@ spec:
   selector:
     matchLabels:
       groups: onewo 
-  replicas: 1 
+  replicas: 1
+  strategy:
+    type: Recreate   # 将更新策略设置为 Recreate，即禁用滚动更新
   template:
     metadata:
       labels:
