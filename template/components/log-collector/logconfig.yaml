@@ -1,0 +1,16 @@
+apiVersion: cls.cloud.tencent.com/v1
+kind: LogConfig
+metadata:
+  name: demo-app
+spec:
+  clsDetail:
+    period: 7
+    logsetName: demo-project
+    topicName: demo-app
+  inputDetail:
+    type: container_stdout
+    containerStdout:
+      allContainers: false
+        includeLabels:
+          app: demo-app
+
